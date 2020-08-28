@@ -1,8 +1,17 @@
 #include "grid.h"
 #include "debugger.h"
+#include <thread>
+#include <vector>
 
+//Constructor
 grid::grid(){}
+grid::~grid(){
+	//Clear the gameSpace to avoid memory leaks
+	gameSpace.clear();
+}
 
+
+//Getters and setters
 bool grid::getDoUpdate(){ return doUpdate; }
 std::vector<std::vector<tile>> grid::getGameSpace(){ return gameSpace; }
 int grid::getGH(){ return gH; }
@@ -19,14 +28,21 @@ void grid::setOffsetX( int _offsetX){ offsetX = _offsetX; }
 void grid::setOffsetY( int _offsetY){ offsetY = _offsetY; }
 void grid::setLineColour( ofColor _lineColour){ lineColour = _lineColour; }
 
+//Methods to allow other classes to interface with the grid easily
+void grid::setTileColour(int _x, int _y, ofColor _colour){ gameSpace[_x][_y].setColour(_colour); }
+ofColor grid::getTileColour(int _x, int _y){ return gameSpace[_x][_y].getColour(); }
+
+//Other methods
 void grid::createGrid(){
 	//Log starting
 	debugger::log("Creating new grid...");
 
+	//Setting up the offset for the grid
 	debugger::log("Setting vars");
 	offsetX = (ofGetWidth()/2) - ((gW/2) * tile::getSize());
 	offsetY = (ofGetHeight()/2) - ((gH/2) * tile::getSize());
 
+	//Display vars
 	std::string msg = "Height = "; msg += std::to_string(gH);
 	debugger::log(msg);
 	msg = "Width = "; msg += std::to_string(gW);
@@ -42,11 +58,14 @@ void grid::createGrid(){
 	//Clear gameSpace
 	gameSpace.clear();
 
+	//Setup the tiles and add to gameSpace
 	for(int i = 0; i < gH; i++){
 		std::vector<tile> tmp;
 		for(int j = 0; j < gW; j++){
 			//Create tile and assign X/Y/black
 			tile a = tile(((tile::getSize()*j) + offsetX), ((tile::getSize()*i) + offsetY), ofColor::black);
+			a.setGridX(i);
+			a.setGridY(j);
 
 			//Push to back of tile queue
 			tmp.push_back(a);
@@ -55,7 +74,7 @@ void grid::createGrid(){
 		gameSpace.push_back(tmp);
 	}
 
-	//Grid created
+	//Grid created, log
 	debugger::log("Game created");
 }
 
@@ -85,6 +104,15 @@ void grid::drawGrid(){
 						((s*i) + offsetY)-(s/2), //Y
 						s,    //Width
 						s );  //Height
+		}
+	}
+}
+
+void grid::resetGrid(){
+	//This could be multithreaded if optimisations are needed
+	for(int i = 0; i < gH; i++){
+		for(int j = 0; j < gW; j++){
+			setTileColour(i,j,ofColor::black);
 		}
 	}
 }

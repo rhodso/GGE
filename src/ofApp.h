@@ -8,31 +8,34 @@
 class ofApp : public ofBaseApp{
 
 public:
-    void setup();
-    void update();
-    void draw();
+	//oF functions we're using
+	void setup();
+	void update();
+	void draw();
+	void keyPressed(int key);
 
-    void handleKeypresses();
+	//Other methods
+	void handleKeypresses();
 
-    //oF used
-    void keyPressed(int key);
-    void keyReleased(int key);
-
-    //Unused, but if we take them out then oF throws a hissy fit
-    void mouseMoved(int x, int y );
-    void mouseDragged(int x, int y, int button);
-    void mousePressed(int x, int y, int button);
-    void mouseReleased(int x, int y, int button);
-    void mouseEntered(int x, int y);
-    void mouseExited(int x, int y);
-    void windowResized(int w, int h);
-    void dragEvent(ofDragInfo dragInfo);
-    void gotMessage(ofMessage msg);
+	//Unused, but if we take them out then oF throws a hissy fit
+	void keyReleased(int key);
+	void mouseMoved(int x, int y );
+	void mouseDragged(int x, int y, int button);
+	void mousePressed(int x, int y, int button);
+	void mouseReleased(int x, int y, int button);
+	void mouseEntered(int x, int y);
+	void mouseExited(int x, int y);
+	void windowResized(int w, int h);
+	void dragEvent(ofDragInfo dragInfo);
+	void gotMessage(ofMessage msg);
 
 private:
-    bool keys[65535];
-    bool debug = true;
+	bool keys[65535];       //Key array
+	bool debug = false;      //Show/Hide debug info
+	unsigned long long frameCount;  //Frame counter
+		//Can store up to 9.749 billion years at 60FPS so no worries about it running out
 
-    grid g;
+	//Vars needed for the game
+	grid g;
 
 };

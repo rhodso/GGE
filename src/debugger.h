@@ -7,20 +7,20 @@
 class debugger
 {
 public:
-    //Constructor
-    debugger();
+	//Constructor
+	debugger();
 
-    //Getters and setters
-    static bool getDebug();
-    static void setDebug( bool _debug );
+	//Getters and setters
+	static bool getDebug();
+	static void setDebug( bool _debug );
 
-    //Methods
-    static void log(std::string msg);       //Log message if debug is enabled
-    static void logIgnore(std::string msg); //Log message regardless if debug is enabled or not
+	//Methods
+	static void log(std::string msg);       //Log message if debug is enabled
+	static void logIgnore(std::string msg); //Log message regardless if debug is enabled or not
 
 private:
-    static bool debug; //Wheather debug is enabled or not
-    static std::time_t initTime;
+	static bool debug; //Wheather debug is enabled or not
+	static std::time_t initTime;
 };
 
 #endif // DEBUGGER_H
