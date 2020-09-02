@@ -106,6 +106,7 @@ void grid::drawGrid(){
 						s );  //Height
 		}
 	}
+	ofFill();
 }
 
 void grid::resetGrid(){
