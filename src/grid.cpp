@@ -117,3 +117,24 @@ void grid::resetGrid(){
 		}
 	}
 }
+
+void grid::autoSize(){
+	//Find the maxWidth and maxHeight
+	float border = 200.0;
+	float maxWidth = (ofGetWindowWidth()-border) / gW;
+	float maxHeight = (ofGetWindowHeight()-border) / gH;
+
+	//Log the maxWidth and maxHeight
+	debugger::log("maxWidth: " + std::to_string( (int) maxWidth));
+	debugger::log("maxHeight: " + std::to_string( (int) maxHeight));
+
+	//Set the size
+	if(maxWidth < maxHeight){
+		tile::setSize(maxWidth);
+	} else {
+		tile::setSize(maxHeight);
+	}
+
+	//Log what the size was set to
+	debugger::log("tileSize set to " + std::to_string( (int) tile::getSize()));
+}

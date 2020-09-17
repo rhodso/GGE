@@ -35,3 +35,4 @@ void tile::draw(){
 	ofSetColor(colour);
 	ofDrawRectangle(x-(size/2.0),y-(size/2.0),size,size);
 }
+

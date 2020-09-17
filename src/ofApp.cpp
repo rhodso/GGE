@@ -11,11 +11,11 @@ void ofApp::setup(){
 
 	//Setup game vars
 	frameCount = 0;
-	tile::setSize(30);
 
 	//Setup grid vars
 	g.setGH(10);
 	g.setGW(10);
+	g.autoSize();
 	g.setLineColour(ofColor::fromHex(0xCCCCCC));
 	g.createGrid();
 

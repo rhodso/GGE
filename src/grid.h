@@ -36,6 +36,7 @@ public:
 	void createGrid();
 	void drawGrid();
 	static void resetGrid();
+	static void autoSize();
 
 private:
 
